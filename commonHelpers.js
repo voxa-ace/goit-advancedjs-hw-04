@@ -1,0 +1,12 @@
+(function(){const r=document.createElement("link").relList;if(r&&r.supports&&r.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))o(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const n of t.addedNodes)n.tagName==="LINK"&&n.rel==="modulepreload"&&o(n)}).observe(document,{childList:!0,subtree:!0});function l(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function o(e){if(e.ep)return;e.ep=!0;const t=l(e);fetch(e.href,t)}})();const p="44529920-2c5437e602f6361a7a48a154a",y="https://pixabay.com/api/";let c="",a=1;const f=40,m=document.getElementById("search-form"),u=document.querySelector(".gallery"),i=document.querySelector(".load-more");m.addEventListener("submit",h);i.addEventListener("click",d);async function h(s){s.preventDefault(),c=s.target.searchQuery.value.trim(),c&&(a=1,u.innerHTML="",i.style.display="none",await d())}async function d(){try{const r=await(await fetch(`${y}?key=${p}&q=${c}&image_type=photo&orientation=horizontal&safesearch=true&page=${a}&per_page=${f}`)).json();if(r.hits.length===0){iziToast.error({title:"Error",message:"Sorry, there are no images matching your search query. Please try again."});return}g(r.hits),a*f>=r.totalHits?(i.style.display="none",iziToast.info({title:"Info",message:"We're sorry, but you've reached the end of search results."})):i.style.display="block",iziToast.success({title:"Success",message:`Hooray! We found ${r.totalHits} images.`}),a+=1}catch{iziToast.error({title:"Error",message:"Failed to fetch images. Please try again later."})}}function g(s){const r=s.map(o=>`
+      <a href="${o.largeImageURL}" class="photo-card">
+        <img src="${o.webformatURL}" alt="${o.tags}" loading="lazy" />
+        <div class="info">
+          <p class="info-item"><b>Likes:</b> ${o.likes}</p>
+          <p class="info-item"><b>Views:</b> ${o.views}</p>
+          <p class="info-item"><b>Comments:</b> ${o.comments}</p>
+          <p class="info-item"><b>Downloads:</b> ${o.downloads}</p>
+        </div>
+      </a>
+    `).join("");u.insertAdjacentHTML("beforeend",r),new SimpleLightbox(".gallery a",{captionsData:"alt",captionDelay:250}).refresh()}
+//# sourceMappingURL=commonHelpers.js.map
