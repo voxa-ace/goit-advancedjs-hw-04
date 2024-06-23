@@ -6,6 +6,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: hidden;
 }
 
 .search-bar {
@@ -54,7 +55,7 @@ body {
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  width: 300px;
+  width: 376px;
   margin: 10px;
 }
 
@@ -73,7 +74,7 @@ body {
   display: flex;
   margin: 5px 0;
   color: #000;
-  text-decoration: none; 
+  text-decoration: underline white
 }
 
 .info-item b {
